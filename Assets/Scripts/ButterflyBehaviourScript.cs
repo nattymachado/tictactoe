@@ -2,64 +2,82 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class ButterflyBehaviourScript : MonoBehaviour {
 
     private Camera _camera = null;
     private Vector3 _limitOfWorld;
     private SpriteRenderer _sprite = null;
-    private float _index=0;
+    private float _totalTime = 0;
+    private float _initScaleX = 0;
+    private float _baseLocation;
 
+    public float WaveLength = 10f;
+    public float WaveAmplitude = 5f;
+    public float Speed = 5f;
 
+    public void OnClick()
+    {
+        changeColor();
+    }
 
-    // Use this for initialization
-    void Start()
+    private void Start()
     {
         _camera = Camera.main;
         _sprite = GetComponent<SpriteRenderer>();
-        Vector3 limitVector = new Vector3(0f, Screen.height, 0f);
-        _limitOfWorld = _camera.ScreenToWorldPoint(limitVector);
-        initializePosition();
-    }
-
-    void initializePosition()
-    {
-        transform.position = new Vector3(Random.Range(0f, _limitOfWorld.x), -_limitOfWorld.y, 0f);
-        _sprite.color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+        _initScaleX = transform.localScale.x;
+        _totalTime = 0;
+        Speed = Random.Range(1f, 5f);
+        WaveAmplitude = Random.Range(1f, 10f);
+        WaveLength = Random.Range(1f, 20f);
+        _limitOfWorld = _camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0f));
         
+        initializePositionAndColor();
     }
 
-    void updatePosition()
+    private void changeColor()
     {
-     /*   transform.position += new Vector3(0.1f, Mathf.Abs(0.5 * Mathf.Sin(1f * (float) Time.deltaTime)), 0f);
-        */
+        _sprite.color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+    }
 
+    private void initializePositionAndColor()
+    {
+        changeColor();
+        _baseLocation = Random.Range(-_limitOfWorld.x, _limitOfWorld.x);
+        Debug.Log(_limitOfWorld.x);
+        transform.position = new Vector3(_baseLocation, -_limitOfWorld.y, 0f);
+    }
 
-            _index += Time.deltaTime;
-        float x = transform.position.x + 0.1f;
-        Debug.Log(_index);
-        transform.position += new Vector3( 0.05f * Mathf.Sin(_index * 5), 0.1f, 0f);
-       if (transform.position.y > _limitOfWorld.y)
+    private void updatePosition()
+    {
+        _totalTime += Time.deltaTime;
+        Vector3 position = transform.position;
+        position.y += Speed * Time.deltaTime;
+        position.x = _baseLocation + Mathf.Sin(position.y * 2 * Mathf.PI / WaveLength) * WaveAmplitude / 2;
+
+        if (position.y > _limitOfWorld.y)
         {
-            initializePosition();
+            initializePositionAndColor();
+        } else
+        {
+            transform.position = position;
         }
 
-        Debug.Log(_index);
-        Debug.Log(_index % 2);
-        if ( (_index % 1) < 0.6)
+        if ( (_totalTime % 1) < 0.6)
         {
-            transform.localScale = new Vector3(0.5f, transform.localScale.y, 1f);
+            transform.localScale = new Vector3(_initScaleX / 2f, transform.localScale.y, 1f);
         } else{
-            transform.localScale = new Vector3(1f, transform.localScale.y, 1f);
+            transform.localScale = new Vector3(_initScaleX, transform.localScale.y, 1f);
         }
             
     }
 
-    // Update is called once per frame
+    private void Awake()
+    {
+        Debug.Log("Tô aaqui");
+    }
+
     void Update () {
         updatePosition();
-        
-
-
-
     }
 }
