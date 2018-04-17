@@ -8,6 +8,6 @@ public class PositionClickDetector : MonoBehaviour
     private void OnMouseDown()
     {
         Debug.Log("Cliquei");
-        BoardBehavior.ClickBehavior();
+       //////// BoardBehavior.ClickBehavior();
     }
 }

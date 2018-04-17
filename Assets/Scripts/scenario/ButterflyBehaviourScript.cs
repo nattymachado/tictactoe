@@ -27,7 +27,6 @@ public class ButterflyBehaviourScript : MonoBehaviour {
         _sprite = GetComponent<SpriteRenderer>();
         float butterflySize = (float) transform.localScale.x / Random.Range(1, 3);
         transform.localScale = new Vector3((float) butterflySize, (float) butterflySize, 1f);
-        Debug.Log("TAMANHO" + transform.localScale);
         _initScaleX = transform.localScale.x;
         _totalTime = 0;
         Speed = Random.Range(1f, 5f);
