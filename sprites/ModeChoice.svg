@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="ModeChoice.svg"
+   inkscape:export-filename="C:\Users\Natalia\Documents\Pos-Jogos\tictactoe-master (1)\tictactoe-master\Assets\Sprites\title.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96">
+  <defs
+     id="defs2">
+    <linearGradient
+       id="linearGradient6038"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#00aac2;stop-opacity:1;"
+         offset="0"
+         id="stop6036" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient6032"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#bc4e75;stop-opacity:1;"
+         offset="0"
+         id="stop6030" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient6026"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#aad400;stop-opacity:1;"
+         offset="0"
+         id="stop6024" />
+    </linearGradient>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35"
+     inkscape:cx="-127.14286"
+     inkscape:cy="560"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1366"
+     inkscape:window-height="705"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Camada 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot6138"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Rockwell Extra Bold';-inkscape-font-specification:'Rockwell Extra Bold, ';letter-spacing:0px;word-spacing:0px;fill:#d40000;fill-opacity:1;stroke:none"
+       transform="matrix(0.26458333,0,0,0.26458333,-0.75595238,29.482143)"
+       inkscape:export-filename="C:\Users\Natalia\Documents\Pos-Jogos\tictactoe-master (1)\tictactoe-master\Assets\Sprites\startTitle.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><flowRegion
+         id="flowRegion6140"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Rockwell Extra Bold';-inkscape-font-specification:'Rockwell Extra Bold, ';fill:#d40000"><rect
+           id="rect6142"
+           width="654.28571"
+           height="142.85713"
+           x="151.42857"
+           y="291.09113"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Rockwell Extra Bold';-inkscape-font-specification:'Rockwell Extra Bold, ';fill:#d40000" /></flowRegion><flowPara
+         id="flowPara6144">Select the mode</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot6138-2"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Rockwell Extra Bold';-inkscape-font-specification:'Rockwell Extra Bold, ';letter-spacing:0px;word-spacing:0px;fill:#d40000;fill-opacity:1;stroke:none"
+       transform="matrix(0.26458333,0,0,0.26458333,-2.978923,47.124767)"
+       inkscape:export-filename="C:\Users\Natalia\Documents\Pos-Jogos\tictactoe-master (1)\tictactoe-master\Assets\Sprites\startTitle.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><flowRegion
+         id="flowRegion6140-9"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Rockwell Extra Bold';-inkscape-font-specification:'Rockwell Extra Bold, ';fill:#d40000"><rect
+           id="rect6142-7"
+           width="654.28571"
+           height="142.85713"
+           x="151.42857"
+           y="291.09113"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Rockwell Extra Bold';-inkscape-font-specification:'Rockwell Extra Bold, ';fill:#d40000" /></flowRegion><flowPara
+         id="flowPara6144-0">1 - Easy</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot6138-2-1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Rockwell Extra Bold';-inkscape-font-specification:'Rockwell Extra Bold, ';letter-spacing:0px;word-spacing:0px;fill:#d40000;fill-opacity:1;stroke:none"
+       transform="matrix(0.26458333,0,0,0.26458333,-3.6211884,60.394905)"
+       inkscape:export-filename="C:\Users\Natalia\Documents\Pos-Jogos\tictactoe-master (1)\tictactoe-master\Assets\Sprites\startTitle.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><flowRegion
+         id="flowRegion6140-9-7"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Rockwell Extra Bold';-inkscape-font-specification:'Rockwell Extra Bold, ';fill:#d40000"><rect
+           id="rect6142-7-5"
+           width="654.28571"
+           height="142.85713"
+           x="151.42857"
+           y="291.09113"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Rockwell Extra Bold';-inkscape-font-specification:'Rockwell Extra Bold, ';fill:#d40000" /></flowRegion><flowPara
+         id="flowPara6144-0-2">2 - Medium</flowPara><flowPara
+         id="flowPara6194">3- Hard</flowPara></flowRoot>  </g>
+</svg>

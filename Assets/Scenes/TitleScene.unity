@@ -203,6 +203,7 @@ GameObject:
   m_Component:
   - component: {fileID: 141052288}
   - component: {fileID: 141052287}
+  - component: {fileID: 141052289}
   m_Layer: 0
   m_Name: startTitle
   m_TagString: Untagged
@@ -267,46 +268,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &866426117
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 866426119}
-  - component: {fileID: 866426118}
-  m_Layer: 0
-  m_Name: TitleBehavior
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &866426118
+--- !u!114 &141052289
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 866426117}
+  m_GameObject: {fileID: 141052286}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 842ff3d76caf5d04bb35e37b96602463, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &866426119
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 866426117}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.68999505, y: 1.065, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  ModeChoicesSprite: {fileID: 21300000, guid: 463f24b14565220498e35f5fe7107484, type: 3}
+  StartTitleSprite: {fileID: 21300000, guid: ee2ae353290aac245974690d119e728a, type: 3}
 --- !u!1 &983442254
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,11 +305,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 983442254}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 131a1943c3fcc44479d86ebca8641246, type: 3}
+  m_Script: {fileID: 11500000, guid: 9f6bd129c727ba243a8a53653fd208e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _numberOfButterflies: 30
-  ButterflyTemplate: {fileID: 1372071303419038, guid: 74d56b224eb9572498478d18ce5fd2cf,
+  _numberOfButterflies: 40
+  ButterflyTemplate: {fileID: 1372071303419038, guid: 942056d0d92d535448c3fc26bb72435d,
     type: 2}
 --- !u!4 &983442256
 Transform:
@@ -397,8 +371,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1627126005
-  m_SortingLayer: 2
+  m_SortingLayerID: -258854265
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 397b725ac02f9ff4e83fd3ce243f77bb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -484,8 +458,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1576040761
-  m_SortingLayer: 1
+  m_SortingLayerID: -128513239
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 397b725ac02f9ff4e83fd3ce243f77bb, type: 3}
   m_Color: {r: 0.007352948, g: 0, b: 0, a: 1}

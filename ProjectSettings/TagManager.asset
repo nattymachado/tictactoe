@@ -41,3 +41,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: ButterfliesShadow
+    uniqueID: 1872378165
+    locked: 0
+  - name: ButterfliesMain
+    uniqueID: 3720041259
+    locked: 0
+  - name: TitleShadow
+    uniqueID: 4166454057
+    locked: 0
+  - name: TitleMain
+    uniqueID: 4036113031
+    locked: 0

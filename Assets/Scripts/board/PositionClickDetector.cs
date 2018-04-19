@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class PositionClickDetector : MonoBehaviour
 {
+    public int positionId = 0;
 
     private void OnMouseDown()
     {
-        Debug.Log("Cliquei");
-       //////// BoardBehavior.ClickBehavior();
+        BoardBehavior boardBehavior = GetComponentInParent<BoardBehavior>();
+        Debug.Log(positionId);
+        boardBehavior.ClickBehavior(positionId);
     }
 }

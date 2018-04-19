@@ -73,11 +73,6 @@ public class ButterflyBehaviourScript : MonoBehaviour {
             
     }
 
-    private void Awake()
-    {
-        Debug.Log("Tô aaqui");
-    }
-
     void Update () {
         updatePosition();
     }
