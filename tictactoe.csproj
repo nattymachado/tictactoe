@@ -238,8 +238,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\board\BaseClickDetector.cs" />
+    <Compile Include="Assets\Scripts\board\Player.cs" />
     <Compile Include="Assets\Scripts\board\Board.cs" />
-    <Compile Include="Assets\Scripts\board\BoardBehavior.cs" />
+    <Compile Include="Assets\Scripts\board\BoardManager.cs" />
     <Compile Include="Assets\Scripts\board\BoardConfiguration.cs" />
     <Compile Include="Assets\Scripts\board\BoardConfigurationGetter.cs" />
     <Compile Include="Assets\Scripts\board\BoardViewer.cs" />

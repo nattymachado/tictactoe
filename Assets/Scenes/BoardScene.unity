@@ -225,6 +225,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   positionId: 4
+  line: 1
+  column: 0
 --- !u!1 &44372517
 GameObject:
   m_ObjectHideFlags: 0
@@ -337,6 +339,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   positionId: 7
+  line: 2
+  column: 0
 --- !u!1 &75670702
 GameObject:
   m_ObjectHideFlags: 0
@@ -449,6 +453,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   positionId: 2
+  line: 0
+  column: 1
 --- !u!1 &317634144
 GameObject:
   m_ObjectHideFlags: 0
@@ -642,6 +648,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   positionId: 3
+  line: 0
+  column: 2
 --- !u!1 &1074819525
 GameObject:
   m_ObjectHideFlags: 0
@@ -754,6 +762,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   positionId: 9
+  line: 2
+  column: 2
 --- !u!1 &1242703884
 GameObject:
   m_ObjectHideFlags: 0
@@ -866,6 +876,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   positionId: 5
+  line: 1
+  column: 1
 --- !u!1 &1727576248
 GameObject:
   m_ObjectHideFlags: 0
@@ -960,6 +972,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daed75445f4dd1b4fadc7d6767488818, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player1: 1
+  Player2: 0
   Circle: {fileID: 21300000, guid: b67be498aad83e94fb72a4b7b27d172b, type: 3}
   Cross: {fileID: 21300000, guid: 381b1495f0198b245892aa47fbf16f6e, type: 3}
 --- !u!1 &1739801235
@@ -1074,6 +1088,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   positionId: 6
+  line: 1
+  column: 2
 --- !u!1 &1833002326
 GameObject:
   m_ObjectHideFlags: 0
@@ -1186,6 +1202,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   positionId: 1
+  line: 0
+  column: 0
 --- !u!1 &1949494281
 GameObject:
   m_ObjectHideFlags: 0
@@ -1298,3 +1316,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   positionId: 8
+  line: 2
+  column: 1
