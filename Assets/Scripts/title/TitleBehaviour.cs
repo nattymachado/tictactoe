@@ -27,8 +27,9 @@ public class TitleBehaviour : MonoBehaviour {
         Scene activeScene = SceneManager.GetActiveScene();
         if (activeScene.name != _boardSceneName)
         {
-            StartCoroutine(UnloadTitleScene());
+            
             AsyncOperation loadOperation = SceneManager.LoadSceneAsync(_boardSceneName, LoadSceneMode.Additive);
+            StartCoroutine(UnloadTitleScene());
             while (!loadOperation.isDone)
             {
                 yield return null;
