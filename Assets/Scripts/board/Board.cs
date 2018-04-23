@@ -5,27 +5,38 @@ using UnityEngine;
 
 public class Board {
 
-    private Player[,] _positions;
+    public Board() {
+        InitializePositions();
+    }
+
+    private int[,] _positions;
 
 
-    public Player GetPosition(int line, int column)
+    public int GetPosition(int line, int column)
     {
         return _positions[line, column];
     }
 
-    public Player[,] GetPositions()
+    public int[,] GetPositions()
     {
         return _positions;
     }
 
-    public void SetPosition(int line, int column, Player player)
+    public void SetPosition(int line, int column, int player)
     {
         _positions[line, column] = player;
     }
 
-    public void SetPositions(Player[,] positions)
+    public void SetPositions(int[,] positions)
     {
-        _positions = positions;
+        for (int line = 0; line < 3; line++)
+        {
+            for (int column = 0; column < 3; column++)
+            {
+                _positions[line, column] = positions[line, column];
+            }
+        }
+        
     }
 
     public Dictionary<string, int> GetBoardDimensions()
@@ -40,7 +51,7 @@ public class Board {
 
     public void InitializePositions()
     {
-        _positions = new Player[3, 3] { { null, null, null }, { null, null, null }, { null, null, null } };
+        _positions = new int[3, 3] { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } };
     }
 
     public bool CheckEmptyPositions()
@@ -49,7 +60,7 @@ public class Board {
         {
             for (int column = 0; column < 3; column++)
             {
-                if (this.GetPosition(line, column) == null)
+                if (this.GetPosition(line, column) == 0)
                 {
                     return true;
                 }
@@ -58,69 +69,77 @@ public class Board {
         return false;
     }
 
-    public Dictionary<string, object> IsGameEnded()
-    {
-        Dictionary<string, object> GameResult = new Dictionary<string, object>();
-        GameResult["isEnded"] = false;
-        GameResult["winner"] = null;
 
-        Player winner = CheckGameEndingColumns();
-        if (( winner == null))
+    public void seeBoard(Board board)
+    {
+        Debug.Log(board.GetPosition(0, 0)  + "|" + board.GetPosition(0, 1) + "|" + board.GetPosition(0, 2));
+        Debug.Log(board.GetPosition(1, 0) + "|" + board.GetPosition(1, 1) + "|" + board.GetPosition(1, 2));
+        Debug.Log(board.GetPosition(2, 0) + "|" + board.GetPosition(2, 1) + "|" + board.GetPosition(2, 2));
+    }
+
+    public Dictionary<string, int> IsGameEnded()
+    {
+        Dictionary<string, int> GameResult = new Dictionary<string, int>();
+        GameResult["isEnded"] = 0;
+        GameResult["winner"] = 0;
+
+        int winner = CheckGameEndingColumns();
+        if (( winner == 0))
         {
             winner = CheckGameEndingLines();
-            if ( winner == null)
+            if ( winner == 0)
             {
                 winner = CheckGameEndingDiagonal();
-                if (winner == null)
+                if (winner == 0)
                 {
                     if (CheckEmptyPositions())
                     {
+                        Debug.Log("TEM OPCOES");
                         return GameResult;
                     }
                 }
             }
         }
-
-        GameResult["isEnded"] = true;
+        GameResult["isEnded"] = 1;
         GameResult["winner"] = winner;
         return GameResult;
     }
 
-    private Player CheckGameEndingColumns()
+    private int CheckGameEndingColumns()
     {
         for (int column = 0; column < 3; column++)
         {
-            if ((this.GetPosition(0, column) != null) && (this.GetPosition(0, column) == this.GetPosition(1, column)) && (this.GetPosition(1, column) == this.GetPosition(2, column)))
+            if ((this.GetPosition(0, column) != 0) && (this.GetPosition(0, column) == this.GetPosition(1, column)) && (this.GetPosition(1, column) == this.GetPosition(2, column)))
             {
                 return this.GetPosition(0, column);
             }
         }
-        return null;
+        return 0;
     }
 
-    private Player CheckGameEndingDiagonal()
+    private int CheckGameEndingDiagonal()
     {
-        if ((this.GetPosition(0, 0) != null) && (this.GetPosition(0, 0) == this.GetPosition(1, 1)) && (this.GetPosition(1, 1) == this.GetPosition(2, 2)))
+        if ((this.GetPosition(0, 0) != 0) && (this.GetPosition(0, 0) == this.GetPosition(1, 1)) && (this.GetPosition(1, 1) == this.GetPosition(2, 2)))
         {
             return this.GetPosition(0, 0);
         }
-        else if ((this.GetPosition(0, 2) != null) && (this.GetPosition(0, 2) == this.GetPosition(1, 1)) && (this.GetPosition(1, 1) == this.GetPosition(2, 0)))
+        else if ((this.GetPosition(0, 2) != 0) && (this.GetPosition(0, 2) == this.GetPosition(1, 1)) && (this.GetPosition(1, 1) == this.GetPosition(2, 0)))
         {
             return this.GetPosition(0, 2);
         }
-        return null;
+        return 0;
     }
 
-    private Player CheckGameEndingLines()
+    private int CheckGameEndingLines()
     {
         for (int line = 0; line < 3; line++)
         {
 
-            if ((this.GetPosition(line, 0) != null) && (this.GetPosition(line, 0) == this.GetPosition(line, 1)) && (this.GetPosition(line, 1) == this.GetPosition(line, 2)))
+            if ((this.GetPosition(line, 0) != 0) && (this.GetPosition(line, 0) == this.GetPosition(line, 1)) && (this.GetPosition(line, 1) == this.GetPosition(line, 2)))
             {
                 return this.GetPosition(line, 0);
             }
         }
-        return null;
+        return 0;
     }
 }

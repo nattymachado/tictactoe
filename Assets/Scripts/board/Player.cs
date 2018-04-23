@@ -45,12 +45,13 @@ public class AIPlayer : Player
 
     public Dictionary<string, int>  MakePlay(Board board)
     {
-        int depthTree = 8;
+        int depthTree = 1;
         
         Board cloneBoard = new Board();
-        cloneBoard.InitializePositions();
-        //cloneBoard.SetPositions(board.GetPositions());
-        return this.ExecuteMinMax(cloneBoard, depthTree, true, 0, 0);
+        cloneBoard.SetPositions(board.GetPositions());
+        board.seeBoard(board);
+        return ExecuteMinMax(cloneBoard, depthTree, true, 0, 0);
+        //return new Dictionary<string, int>();
 
 
     }
@@ -66,21 +67,20 @@ public class AIPlayer : Player
     
     private Dictionary<string, int> ExecuteMinMax(Board board, int depthTree,  bool isAI, int line, int column)
     {
-        
 
-        Dictionary<string, object> gameResult = board.IsGameEnded();
+
+        Dictionary<string, int> gameResult = board.IsGameEnded();
+        
         Dictionary<string, int> value = new Dictionary<string, int>();
-        if ((bool)gameResult["isEnded"] == true || depthTree == 0)
+        if (gameResult["isEnded"] == 1 || depthTree <= 0)
         {
-            Debug.Log("ACABOU");
-            return SetPositionScore(line, column, CheckScore((Player)gameResult["winner"]));
+            return SetPositionScore(line, column, CheckScore(gameResult["winner"]));
         }
         else
         {
             List<Dictionary<string, int>> emptyPositions = GetEmptyPosition(board);
-            Debug.Log(emptyPositions.Count);
             
-            if (!isAI)
+            if (isAI == false)
             {
                 //MIN
                 value["value"] = 99;
@@ -88,14 +88,13 @@ public class AIPlayer : Player
                 value["line"] = 99;
                 for (int i = 0; i < emptyPositions.Count; i++)
                 {
-                    Debug.Log(emptyPositions[i]["line"] + "x" + emptyPositions[i]["column"]);
                     Board newBoard = new Board();
                     newBoard.SetPositions(board.GetPositions());
-                    newBoard.SetPosition(emptyPositions[i]["line"], emptyPositions[i]["column"], new HumanPlayer(null));
-                    Dictionary<string, int>  newValue = ExecuteMinMax(newBoard, depthTree - 1, true, emptyPositions[i]["line"], emptyPositions[i]["column"]);
+                    newBoard.SetPosition(emptyPositions[i]["line"], emptyPositions[i]["column"], 2);
+                    Dictionary<string, int> newValue = ExecuteMinMax(newBoard, depthTree-1, !isAI, emptyPositions[i]["line"], emptyPositions[i]["column"]);
                     if (value["value"] > newValue["value"])
                     {
-                        value = newValue;
+                       value = newValue;
                     }
                 }
 
@@ -108,21 +107,19 @@ public class AIPlayer : Player
                 value["line"] = -99;
                 for (int i = 0; i < emptyPositions.Count; i++)
                 {
-                    Debug.Log(emptyPositions[i]["line"] + "x" + emptyPositions[i]["column"]);
                     Board newBoard = new Board();
+
                     newBoard.SetPositions(board.GetPositions());
-                    newBoard.SetPosition(emptyPositions[i]["line"], emptyPositions[i]["column"], this);
-                    Dictionary<string, int> newValue = ExecuteMinMax(newBoard, depthTree - 1, false, emptyPositions[i]["line"], emptyPositions[i]["column"]);
+                    newBoard.SetPosition(emptyPositions[i]["line"], emptyPositions[i]["column"], 1);
+                    Dictionary<string, int> newValue = ExecuteMinMax(newBoard, depthTree-1, !isAI, emptyPositions[i]["line"], emptyPositions[i]["column"]);
                     if (value["value"] < newValue["value"])
                     {
-                        value = newValue;
+                      value = newValue;
                     }
                 }
             }
         }
-        Debug.Log("Value:" + value["value"]);
-        Debug.Log("Line:" + value["line"]);
-        Debug.Log("Column:" + value["column"]);
+        
         return value;
     }
 
@@ -134,12 +131,12 @@ public class AIPlayer : Player
         {
             for (int column = 0; column < dimensions["columns"]; column++)
             {
-                if (board.GetPosition(line, column) == null)
+                if (board.GetPosition(line, column) == 0)
                 {
                     Dictionary<string, int> position = new Dictionary<string, int>();
                     position["line"] = line;
                     position["column"] = column;
-                    //Debug.Log("EMPTY: " + line + "-" + column);
+
                     emptyPositions.Add(position);
                 }
             }
@@ -147,12 +144,12 @@ public class AIPlayer : Player
         return emptyPositions;
     }
 
-    private int CheckScore(Player winner)
+    private int CheckScore(int winner)
     {
-        if (winner != null && winner.GetPlayerType() == PlayerType.AIPlayer)
+        if (winner != 0 && winner == 1)
         {
             return +1;
-        } else if (winner != null && winner.GetPlayerType() == PlayerType.HumanPlayer)
+        } else if (winner != 0 && winner == 2)
         {
             return -1;
         } else
