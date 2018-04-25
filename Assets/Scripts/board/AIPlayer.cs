@@ -4,56 +4,21 @@ using UnityEngine;
 
 public enum PlayerType { AIPlayer, HumanPlayer };
 
-public abstract class Player {
 
-    private PlayerType _playerType;
-    private Sprite _symbol;
 
-    public Player(PlayerType type, Sprite symbol)
-    {
-        _symbol = symbol;
-        _playerType = type;
-    }
+public class AIPlayer
 
-    public PlayerType GetPlayerType()
-    {
-        return _playerType;
-    }
-
-    public void SetPlayerType(PlayerType type)
-    {
-        _playerType = type;
-    }
-
-    public Sprite GetSymbol()
-    {
-        return _symbol;
-    }
-
-    public void SetSymbol(Sprite symbol)
-    {
-        _symbol = symbol;
-    }
-
-}
-
-public class AIPlayer : Player
 {
-    public AIPlayer(Sprite symbol) : base(PlayerType.AIPlayer, symbol)
+
+    private int _playerIdentifier = 1;
+    private int _bestMove = 0;
+
+    public int MakePlay(Game game)
     {
-    }
+        GetBestMove(game);
+        Debug.Log("BestMove:" + _bestMove);
 
-    public Dictionary<string, int>  MakePlay(Board board)
-    {
-        int depthTree = 1;
-        
-        Board cloneBoard = new Board();
-        cloneBoard.SetPositions(board.GetPositions());
-        board.seeBoard(board);
-        return ExecuteMinMax(cloneBoard, depthTree, true, 0, 0);
-        //return new Dictionary<string, int>();
-
-
+        return _bestMove;
     }
 
     private Dictionary<string, int> SetPositionScore(int line, int column, int value)
@@ -64,8 +29,8 @@ public class AIPlayer : Player
         positionScore["value"] = value;
         return positionScore;
     }
-    
-    private Dictionary<string, int> ExecuteMinMax(Board board, int depthTree,  bool isAI, int line, int column)
+
+    /*private Dictionary<string, int> ExecuteMinMax(Board board, int depthTree,  bool isAI, int line, int column)
     {
 
 
@@ -121,49 +86,94 @@ public class AIPlayer : Player
         }
         
         return value;
-    }
+    }*/
 
-    private List<Dictionary<string, int>> GetEmptyPosition(Board board)
+    private int GetBestScore(List<int> scores)
     {
-        List<Dictionary<string,int>> emptyPositions = new List<Dictionary<string, int>>();
-        Dictionary<string, int> dimensions = board.GetBoardDimensions();
-        for (int line=0; line < dimensions["lines"]; line++)
+        int value = -999;
+        int index = -999;
+        for (int i=0; i< scores.Count; i++)
         {
-            for (int column = 0; column < dimensions["columns"]; column++)
+            if (value < scores[i])
             {
-                if (board.GetPosition(line, column) == 0)
-                {
-                    Dictionary<string, int> position = new Dictionary<string, int>();
-                    position["line"] = line;
-                    position["column"] = column;
-
-                    emptyPositions.Add(position);
-                }
+                value = scores[i];
+                index = i;
             }
         }
-        return emptyPositions;
+        return index;
+
     }
 
-    private int CheckScore(int winner)
+    private int GetWorseScore(List<int> scores)
     {
-        if (winner != 0 && winner == 1)
+        int value = 999;
+        int index = 999;
+        for (int i = 0; i < scores.Count; i++)
         {
-            return +1;
-        } else if (winner != 0 && winner == 2)
+            if (value > scores[i])
+            {
+                value = scores[i];
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    private int GetBestMove(Game game)
+    {
+        if (game.IsOver)
+            return GetScore(game.Winner, game.Player1Id);
+
+        List<int> scores = new List<int>();
+        List<int> moves = new List<int>();
+        List<int> pMoves = new List<int>();
+
+        pMoves = game.GetPossibleMoves();
+        if (pMoves.Count > 0)
         {
-            return -1;
+            for (int i = 0; i < pMoves.Count; i++)
+            {
+                Game cloneGame = game.Clone();
+                cloneGame.CurrentPlayer = game.CurrentPlayer;
+                cloneGame.MakeMove(pMoves[i]);
+                scores.Add(GetBestMove(cloneGame));
+                moves.Add(pMoves[i]);
+            }
+
+            if (game.CurrentPlayer == 1)
+            {
+                int indexMax = GetBestScore(scores);
+                _bestMove = moves[indexMax];
+                return scores[indexMax];
+            }
+            else
+            {
+                int indexMin = GetWorseScore(scores);
+                _bestMove = moves[indexMin];
+                return scores[indexMin];
+            }
         } else
         {
             return 0;
         }
+        
+
     }
 
-}
+    
 
-public class HumanPlayer : Player
-{
-    public HumanPlayer(Sprite symbol) : base(PlayerType.HumanPlayer, symbol)
+    private int GetScore(int winner, int aiPlayerIdentifier)
     {
+        if (winner == 1)
+        {
+            return 10;
+        } else if (winner == 2)
+        {
+            return -10;
+        } else
+        {
+            return 0;
+        }
     }
 
 }

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ButterflyInitiator : MonoBehaviour {
 
-    private Object _prefab;
     public int _numberOfButterflies = 1;
     public GameObject ButterflyTemplate = null;
 

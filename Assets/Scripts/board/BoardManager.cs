@@ -11,22 +11,19 @@ public class BoardManager: MonoBehaviour {
     
     public Sprite Circle = null;
     public Sprite Cross = null;
-    private readonly object player1;
-    private int gameIsEnded = 0;
     private bool waitingAI = false;
+    private Game _game = null;
+    public Sprite player1Sprite = null;
+    public Sprite player2Sprite = null;
+    private AIPlayer _aiPalyer = new AIPlayer();
 
 
     // Use this for initialization
     private void Start () {
 
         _configuration = BoardConfigurationGetter.getConfigurationObject();
-        Board board = new Board();
-        _configuration.SetBoard(board);
-        Player player1 = new AIPlayer(Cross);
-        Player player2 = new HumanPlayer(Circle);
-        _configuration.SetPlayer1(player1);
-        _configuration.SetPlayer2(player2);
-        _configuration.SetCurrentPlayer(player2);
+        _game = new Game(1, 2);
+        _game.CurrentPlayer = 1;
         InitializeBoardPositions();
 
     }
@@ -42,77 +39,47 @@ public class BoardManager: MonoBehaviour {
     }
 
     // Update is called once per frame
-    public void ClickBehavior(int positionId, int line, int column)
+    public void ClickBehavior(int positionId)
     {
-        Board board = _configuration.GetBoard();
-        Player player1 = _configuration.GetPlayer1();
-        Player player2 = _configuration.GetPlayer2();
-        if (board.GetPosition(line, column) == 0 && waitingAI == false)
+        Board board = _game.Board;
+        int line = ((positionId-1) / 3);
+        int column = ((positionId - 1) % 3);
+        if (board.GetPosition(line, column) == 0)
         {
-            if (_configuration.GetCurrentPlayer() == player1 && player1.GetPlayerType() == PlayerType.HumanPlayer)
+            if (_game.CurrentPlayer == 2)
             {
-                SetPlayerSpriteOnPosition(positionId, player1);
-                board.SetPosition(line, column, 1);
-                _configuration.SetCurrentPlayer(player2);
-            }
-            else if (player2.GetPlayerType() == PlayerType.HumanPlayer)
-            {
-                SetPlayerSpriteOnPosition(positionId, player2);
+                SetPlayerSpriteOnPosition(positionId, player2Sprite);
                 board.SetPosition(line, column, 2);
-                _configuration.SetCurrentPlayer(player1);
+                _game.CurrentPlayer = 1;
             }
         }
     }
 
-    private void SetPlayerSpriteOnPosition(int positionId, Player player)
+    private void SetPlayerSpriteOnPosition(int positionId, Sprite sprite)
     {
         if (positionsRenderer[positionId].sprite == null)
         {
-            positionsRenderer[positionId].sprite = player.GetSymbol();
+            positionsRenderer[positionId].sprite = sprite;
         }
     }
     
     // Update is called once per frame
     private void Update () {
-        Board board = _configuration.GetBoard();
-        
-        if (_configuration.GetCurrentPlayer().GetPlayerType() == PlayerType.AIPlayer && waitingAI == false)
+       if (_game.CurrentPlayer == 1)
         {
-            if (gameIsEnded == 0)
-            {
-                gameIsEnded = board.IsGameEnded()["isEnded"];
-            }
-            if (gameIsEnded == 0)
-            {
-                Debug.Log("Agora é a vez da IA");
-                waitingAI = true;
-
-                AIPlayer player = (AIPlayer)_configuration.GetCurrentPlayer();
-                Dictionary<string, int> move = player.MakePlay(board);
-                Player player1 = _configuration.GetPlayer1();
-                Player player2 = _configuration.GetPlayer2();
-                Debug.Log("Line:" + move["line"]);
-                Debug.Log("Column:" + move["column"]);
-                int positionId = move["line"] * 3 + move["column"] + 1;
-                Debug.Log("PositionId: " + positionId);
-                if (_configuration.GetCurrentPlayer() == player1)
-                {
-                    SetPlayerSpriteOnPosition(positionId, player1);
-                    board.SetPosition(move["line"], move["column"], 1);
-                    _configuration.SetCurrentPlayer(player2);
-                }
-                else
-                {
-                    SetPlayerSpriteOnPosition(positionId, player2);
-                    board.SetPosition(move["line"], move["column"], 2);
-                    _configuration.SetCurrentPlayer(player1);
-                }
-                Debug.Log("FIM da jogada");
-                waitingAI = false;
-            }
             
+            int bestChoice = _aiPalyer.MakePlay(_game);
+            SetPlayerSpriteOnPosition(bestChoice, player1Sprite);
+            bestChoice = bestChoice - 1;
+            _game.Board.SetPosition((bestChoice/3), (bestChoice%3), 1);
+            _game.Board.seeBoard(_game.Board);
+            _game.CurrentPlayer = 2;
+
         }
         
 
     }
+
+
+    
 }

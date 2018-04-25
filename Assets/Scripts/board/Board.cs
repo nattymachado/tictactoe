@@ -77,7 +77,7 @@ public class Board {
         Debug.Log(board.GetPosition(2, 0) + "|" + board.GetPosition(2, 1) + "|" + board.GetPosition(2, 2));
     }
 
-    public Dictionary<string, int> IsGameEnded()
+    /*public Dictionary<string, int> IsGameEnded()
     {
         Dictionary<string, int> GameResult = new Dictionary<string, int>();
         GameResult["isEnded"] = 0;
@@ -141,5 +141,7 @@ public class Board {
             }
         }
         return 0;
-    }
+    }*/
+
+    
 }

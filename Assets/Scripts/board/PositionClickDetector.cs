@@ -12,6 +12,6 @@ public class PositionClickDetector : MonoBehaviour
     {
         BoardManager boardManager = GetComponentInParent<BoardManager>();
         Debug.Log(positionId);
-        boardManager.ClickBehavior(positionId, line, column);
+        boardManager.ClickBehavior(positionId);
     }
 }
