@@ -23,7 +23,7 @@ public class BoardManager: MonoBehaviour {
 
         _configuration = BoardConfigurationGetter.getConfigurationObject();
         _game = new Game(1, 2);
-        _game.CurrentPlayer = 1;
+        _game.CurrentPlayer = 2;
         InitializeBoardPositions();
 
     }
