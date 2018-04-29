@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class BoardConfigurationGetter: MonoBehaviour {
+public class BoardConfigurationGetter {
 
 
     private static string _configurationZoneName = "ConfigurationZone";
 
+
     public static BoardConfiguration getConfigurationObject()
     {
-        Scene ConfigurationZone = SceneManager.GetSceneByName(_configurationZoneName);
-        GameObject ConfigurationObject = ConfigurationZone.GetRootGameObjects()[0];
-        BoardConfiguration Configuration = ConfigurationObject.GetComponent<BoardConfiguration>();
-        return Configuration;
+
+        Scene configurationZone = SceneManager.GetSceneByName(_configurationZoneName);
+        GameObject configurationObject = configurationZone.GetRootGameObjects()[0];
+        BoardConfiguration _boardConfiguration = configurationObject.GetComponent<BoardConfiguration>();
+        return _boardConfiguration;
     }
 
 

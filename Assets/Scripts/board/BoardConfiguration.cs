@@ -5,14 +5,30 @@ using UnityEngine;
 public class BoardConfiguration : MonoBehaviour {
 
     private static DifficultyOptions.Options _difficulty;
+    private static GameModeOption _gameModeOption;
 
-    public DifficultyOptions.Options GetDifficulty() {
-        return _difficulty;
+    public DifficultyOptions.Options Difficulty
+    {
+        get
+        {
+            return _difficulty;
+        }
+        set
+        {
+            _difficulty = value;
+        }
     }
 
-    public void SetDifficulty(DifficultyOptions.Options difficulty)
+    public GameModeOption GameModeOption
     {
-        _difficulty=difficulty;
+        get
+        {
+            return _gameModeOption;
+        }
+        set
+        {
+            _gameModeOption = value;
+        }
     }
 
 }
