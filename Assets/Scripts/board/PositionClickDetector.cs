@@ -11,7 +11,6 @@ public class PositionClickDetector : MonoBehaviour
     private void OnMouseDown()
     {
         BoardManager boardManager = GetComponentInParent<BoardManager>();
-        Debug.Log(positionId);
         boardManager.ClickBehavior(positionId);
     }
 }

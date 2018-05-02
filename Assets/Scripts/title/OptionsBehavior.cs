@@ -56,7 +56,7 @@ public class OptionsBehavior : MonoBehaviour {
             _difficultyText.gameObject.SetActive(false);
         }
         
-        _configuration.GameModeOption = new GameModeOption("oi", _gameModeDropdown.value);
+        _configuration.GameModeOption = new GameModeOption(dropdown.options[dropdown.value].text , dropdown.value);
     }
 
     private void DifficultyDropdownChanged(Dropdown dropdown)
@@ -66,8 +66,12 @@ public class OptionsBehavior : MonoBehaviour {
 
     private void StartGame(Button startButton)
     {
-        StartCoroutine(SceneLoader.LoadScene(_boardSceneName));
-        StartCoroutine(SceneLoader.UnloadScene(_optionsSceneName));
+        if (_configuration.GameModeOption != null)
+        {
+            StartCoroutine(SceneLoader.LoadScene(_boardSceneName));
+            StartCoroutine(SceneLoader.UnloadScene(_optionsSceneName));
+        }
+        
     }
 }
 

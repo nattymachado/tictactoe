@@ -47,6 +47,9 @@ TagManager:
   - name: ButterfliesMain
     uniqueID: 3720041259
     locked: 0
+  - name: Clouds
+    uniqueID: 2071737509
+    locked: 0
   - name: TitleShadow
     uniqueID: 4166454057
     locked: 0

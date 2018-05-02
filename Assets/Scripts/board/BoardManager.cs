@@ -13,17 +13,27 @@ public class BoardManager: MonoBehaviour {
     public Sprite Cross = null;
     private bool waitingAI = false;
     private Game _game = null;
-    public Sprite player1Sprite = null;
-    public Sprite player2Sprite = null;
     private AIPlayer _aiPalyer = new AIPlayer();
-
+    
 
     // Use this for initialization
     private void Start () {
 
         _configuration = BoardConfigurationGetter.getConfigurationObject();
-        _game = new Game(1, 2);
-        _game.CurrentPlayer = 2;
+        Player player1 = null;
+        Player player2 = null;
+        if (_configuration.GameModeOption.Value == 1)
+        {
+            //"Player X Computer"
+            player1 = new Player(1, PlayerType.AIPlayer, Cross);
+
+        } else
+        {
+            player1 = new Player(1, PlayerType.HumanPlayer, Cross);
+        }
+        player2 = new Player(2, PlayerType.HumanPlayer, Circle);
+        _game = new Game(player1, player2);
+        _game.CurrentPlayer = player2;
         InitializeBoardPositions();
 
     }
@@ -41,18 +51,22 @@ public class BoardManager: MonoBehaviour {
     // Update is called once per frame
     public void ClickBehavior(int positionId)
     {
-        Board board = _game.Board;
-        int line = ((positionId-1) / 3);
-        int column = ((positionId - 1) % 3);
-        if (board.GetPosition(line, column) == 0)
+        if (!_game.IsOver)
         {
-            if (_game.CurrentPlayer == 2)
+            Board board = _game.Board;
+            int line = ((positionId - 1) / 3);
+            int column = ((positionId - 1) % 3);
+            if (board.GetPosition(line, column) == 0)
             {
-                SetPlayerSpriteOnPosition(positionId, player2Sprite);
-                board.SetPosition(line, column, 2);
-                _game.CurrentPlayer = 1;
+                if (_game.CurrentPlayer.Type == PlayerType.HumanPlayer)
+                {
+                    SetPlayerSpriteOnPosition(positionId, _game.CurrentPlayer.Symbol);
+                    board.SetPosition(line, column, 2);
+                    _game.CurrentPlayer = (_game.CurrentPlayer == _game.Player1) ? _game.Player2 : _game.Player1;
+                }
             }
         }
+        
     }
 
     private void SetPlayerSpriteOnPosition(int positionId, Sprite sprite)
@@ -65,17 +79,24 @@ public class BoardManager: MonoBehaviour {
     
     // Update is called once per frame
     private void Update () {
-       if (_game.CurrentPlayer == 1)
+        if (_game != null && _game.IsOver)
         {
-            
-            int bestChoice = _aiPalyer.MakePlay(_game);
-            SetPlayerSpriteOnPosition(bestChoice, player1Sprite);
-            bestChoice = bestChoice - 1;
-            _game.Board.SetPosition((bestChoice/3), (bestChoice%3), 1);
-            _game.Board.seeBoard(_game.Board);
-            _game.CurrentPlayer = 2;
+            Debug.Log("Terminou o jogo");
+        } else
+        {
+            if (_game != null && _game.CurrentPlayer.Type == PlayerType.AIPlayer)
+            {
 
+                int bestChoice = _aiPalyer.MakePlay(_game, _configuration.Difficulty);
+                SetPlayerSpriteOnPosition(bestChoice, _game.CurrentPlayer.Symbol);
+                bestChoice = bestChoice - 1;
+                _game.Board.SetPosition((bestChoice / 3), (bestChoice % 3), 1);
+                _game.Board.seeBoard(_game.Board);
+                _game.CurrentPlayer = (_game.CurrentPlayer == _game.Player1) ? _game.Player2 : _game.Player1;
+
+            }
         }
+        
         
 
     }

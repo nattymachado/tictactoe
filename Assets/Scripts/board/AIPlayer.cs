@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PlayerType { AIPlayer, HumanPlayer };
+
 
 public class AIPlayer
 
@@ -11,9 +11,10 @@ public class AIPlayer
     private int _playerIdentifier = 1;
     private int _bestMove = 0;
 
-    public int MakePlay(Game game)
+    public int MakePlay(Game game, DifficultyOptions.Options difficulty)
     {
-        GetBestMove(game, -99, 99);
+        GetBestMove(game, -99, 99, 8, difficulty);
+        
         Debug.Log("BestMove:" + _bestMove);
 
         return _bestMove;
@@ -28,10 +29,11 @@ public class AIPlayer
         return positionScore;
     }
 
-    private int GetBestMove(Game game, int alpha, int beta)
+    private int GetBestMove(Game game, int alpha, int beta, int depth, DifficultyOptions.Options difficulty)
     {
-        if (game.IsOver)
-            return GetScore(game.Winner, game.Player1Id);
+
+        if (game.IsOver  || depth == 0)
+            return GetScore(game.Winner, game.Player1.Id, difficulty);
 
         List<int> scores = new List<int>();
         List<int> moves = new List<int>();
@@ -47,13 +49,13 @@ public class AIPlayer
                 Game cloneGame = game.Clone();
                 cloneGame.CurrentPlayer = game.CurrentPlayer;
                 cloneGame.MakeMove(pMoves[i]);
-                score=GetBestMove(cloneGame, alpha,beta);
+                score=GetBestMove(cloneGame, alpha,beta, depth -1, difficulty);
                 if (i == 0)
                 {
                     bestScore = score;
                     bestMove = pMoves[i];
                 }
-                if (game.CurrentPlayer == 1)
+                if (game.CurrentPlayer.Type == PlayerType.AIPlayer)
                 {
                     //MAX
                     if (bestScore < score)
@@ -87,20 +89,56 @@ public class AIPlayer
 
     }
 
-    
-
-    private int GetScore(int winner, int aiPlayerIdentifier)
+    private int getRamdomNumber(DifficultyOptions.Options difficulty)
     {
-        if (winner == 1)
+        int randomNumber;
+        if (difficulty == DifficultyOptions.Options.Easy)
         {
-            return 10;
-        } else if (winner == 2)
-        {
-            return -10;
+            randomNumber = Random.Range(0, 2) * 2 - 1;
+            return randomNumber;
         } else
         {
-            return 0;
+            randomNumber = Random.Range(0, 100);
+            if (randomNumber > 75)
+            {
+
+                Debug.Log(1);
+                return 1;
+            } else
+            {
+                Debug.Log(-1);
+                return -1;
+            }
+
         }
+        
+    }
+
+    
+
+    private int GetScore(int winner, int aiPlayerIdentifier, DifficultyOptions.Options difficulty)
+    {
+        int score;
+        if (winner == 1)
+        {
+            score = 10;
+            if (difficulty == DifficultyOptions.Options.Easy)
+            {
+                score = score * getRamdomNumber(difficulty);
+            }
+            
+        } else if (winner == 2)
+        {
+            score = -10;
+            if (difficulty != DifficultyOptions.Options.Hard)
+            {
+                score = score * getRamdomNumber(difficulty);
+            }
+        } else
+        {
+            score = 0;
+        }
+        return score;
     }
 
 }

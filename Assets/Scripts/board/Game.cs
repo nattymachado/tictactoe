@@ -2,39 +2,85 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public class Player
+{
+    private int _id;
+    private PlayerType _type;
+    private Sprite _symbol;
+
+    public Player (int id, PlayerType type, Sprite symbol)
+    {
+        _id = id;
+        _type = type;
+        _symbol = symbol;
+    }
+
+    public int Id
+    {
+        get
+        {
+            return _id;
+
+        }
+    }
+
+    public PlayerType Type
+    {
+        get
+        {
+            return _type;
+
+        }
+    }
+
+    public Sprite Symbol
+    {
+        get
+        {
+            return _symbol;
+
+        }
+    }
+
+
+
+}
+
+public enum PlayerType { AIPlayer, HumanPlayer };
+
 
 public class Game 
 {
 
     private Board _board = null;
-    private int _player1Id = 0;
-    private int _player2Id = 0;
+    private Player _player1 = null;
+    private Player _player2 = null;
     private int _winner = 0;
     private bool _isOver = false;
-    private int _currentPlayer = 0;
+    private Player _currentPlayer = null;
 
-    public Game(int player1Id, int player2Id)
+    public Game(Player player1, Player player2)
     {
         _board = new Board();
-        _player1Id = player1Id;
-        _player2Id = player2Id;
+        _player1 = player1;
+        _player2 = player2;
 
     }
 
-    public int Player1Id
+    public Player Player1
     {
         get
         {
-            return _player1Id;
+            return _player1;
 
         }
     }
 
-    public int Player2Id
+    public Player Player2
     {
         get
         {
-            return _player2Id;
+            return _player2;
 
         }
     }
@@ -79,7 +125,7 @@ public class Game
         }
     }
 
-    public int CurrentPlayer
+    public Player CurrentPlayer
     {
         get
         {
@@ -150,7 +196,7 @@ public class Game
 
     public Game Clone()
     {
-        Game newGame = new Game(this.Player1Id, this.Player2Id);
+        Game newGame = new Game(this.Player1, this.Player2);
         newGame.Board.SetPositions(this.Board.GetPositions());
         return newGame;
     }
@@ -160,8 +206,8 @@ public class Game
         move = move - 1;
         int line = (move / 3);
         int column = (move % 3);
-        Board.SetPosition(line, column, _currentPlayer);
-        _currentPlayer = _currentPlayer == 1 ?  2 : 1;
+        Board.SetPosition(line, column, _currentPlayer.Id);
+        _currentPlayer = (_currentPlayer == _player1) ? _player2 : _player1;
     }
 
 }

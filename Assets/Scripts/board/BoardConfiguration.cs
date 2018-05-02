@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class BoardConfiguration : MonoBehaviour {
 
-    private static DifficultyOptions.Options _difficulty;
-    private static GameModeOption _gameModeOption;
+    private static DifficultyOptions.Options _difficulty = DifficultyOptions.Options.Hard;
+    private static GameModeOption _gameModeOption = null;
 
     public DifficultyOptions.Options Difficulty
     {

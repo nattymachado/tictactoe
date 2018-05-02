@@ -30,8 +30,8 @@ public class ButterflyBehaviourScript : MonoBehaviour {
         _initScaleX = transform.localScale.x;
         _totalTime = 0;
         Speed = Random.Range(1f, 5f);
-        WaveAmplitude = Random.Range(1f, 10f);
-        WaveLength = Random.Range(1f, 20f);
+        WaveAmplitude = Random.Range(1f, 5f);
+        WaveLength = Random.Range(10f, 20f);
         _limitOfWorld = _camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0f));
         
         initializePositionAndColor();
