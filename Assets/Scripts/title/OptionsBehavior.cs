@@ -9,7 +9,7 @@ public class OptionsBehavior : MonoBehaviour {
     private Text _difficultyText;
     private Button _startButton;
     private BoardConfiguration _configuration;
-    private string _boardSceneName = "BoardScene";
+    private string _nextSceneName = "WhoStartScene";
     private string _optionsSceneName = "OptionsScene";
 
     // Use this for initialization
@@ -68,7 +68,7 @@ public class OptionsBehavior : MonoBehaviour {
     {
         if (_configuration.GameModeOption != null)
         {
-            StartCoroutine(SceneLoader.LoadScene(_boardSceneName));
+            StartCoroutine(SceneLoader.LoadScene(_nextSceneName));
             StartCoroutine(SceneLoader.UnloadScene(_optionsSceneName));
         }
         

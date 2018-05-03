@@ -248,6 +248,7 @@
     <Compile Include="Assets\Scripts\scenario\ButterflyBehaviourScript.cs" />
     <Compile Include="Assets\Scripts\scenario\ButterflyClickDetector.cs" />
     <Compile Include="Assets\Scripts\scenario\ButterflyInitiator.cs" />
+    <Compile Include="Assets\Scripts\scenario\WhoStartBehaviour.cs" />
     <Compile Include="Assets\Scripts\title\OptionsBehavior.cs" />
     <Compile Include="Assets\Scripts\title\TitleBehaviour.cs" />
     <Compile Include="Assets\Scripts\utils\SceneLoader.cs" />
