@@ -7,8 +7,12 @@ public class BoardManager: MonoBehaviour {
 
 
     private BoardConfiguration _configuration = null;
-    private SpriteRenderer[] positionsRenderer = null;  
-    
+    private SpriteRenderer[] _positionsRenderer = null;
+    private float _totalTime = 0;
+    private float _infoSpeed = 3;
+    private Vector3 _limitOfWorld;
+    private Camera _camera = null;
+
     public Sprite Circle = null;
     public Sprite Cross = null;
     public Sprite CrossWithCircle = null;
@@ -42,26 +46,27 @@ public class BoardManager: MonoBehaviour {
         {
             _game.CurrentPlayer = player2;
         }
-         
+        _camera = Camera.main;
+        _limitOfWorld = _camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0f));
         InitializeBoardPositions();
 
     }
 
     private void InitializeBoardPositions()
     {
-        positionsRenderer = GetComponentsInChildren<SpriteRenderer>();
+        _positionsRenderer = GameObject.Find("positions").GetComponentsInChildren<SpriteRenderer>();
 
-        for (int position=1; position<positionsRenderer.Length; position++)
+        for (int position=0; position<_positionsRenderer.Length; position++)
         {
-            positionsRenderer[position].sprite = null;
+            _positionsRenderer[position].sprite = null;
         }
     }
 
-    private void FindingWinner()
+    private void FindWinner()
     {
-        positionsRenderer = GetComponentsInChildren<SpriteRenderer>();
+
         Sprite winnerSprite = null;
-        if (_game.Winner == 1)
+        if (_game.Winner == 1 && _positionsRenderer != null)
         {
             winnerSprite = CrossWithCircle;
         } else
@@ -72,13 +77,48 @@ public class BoardManager: MonoBehaviour {
         {
             for (int position = 0; position < _game.WinnerPositions.Length; position++)
             {
-                positionsRenderer[_game.WinnerPositions[position]].sprite = winnerSprite;
+                _positionsRenderer[(_game.WinnerPositions[position]-1)].sprite = winnerSprite;
             }
         }
         
     }
 
-    // Update is called once per frame
+    private void CheckRestart()
+    {
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            StartCoroutine(SceneLoader.LoadScene("OptionsScene"));
+            StartCoroutine(SceneLoader.UnloadScene("BoardScene"));
+
+        }
+    }
+
+    private void EndGame()
+    {
+        _totalTime += Time.deltaTime;
+        Transform infoTransform = GameObject.Find("info").GetComponentInChildren<Transform>();
+        infoTransform.localScale = new Vector3(40f, 40f, 1f);
+        
+        Vector3 position = infoTransform.position;
+        float newY = position.y;
+        float newX = position.x;
+        newY -= _infoSpeed * Time.deltaTime;
+        newX += (_infoSpeed * 1.38f) * Time.deltaTime;
+
+        Debug.Log(position.y);
+        Debug.Log(-_limitOfWorld.y);
+        if (newY > (-_limitOfWorld.y))
+        {
+            position.Set(position.x, newY, position.z);
+        }
+        if (newX < (_limitOfWorld.x))
+        {
+            position.Set(newX, position.y, position.z);
+        }
+        infoTransform.position = position;
+    }
+
+     
     public void ClickBehavior(int positionId)
     {
         if (!_game.IsOver)
@@ -101,9 +141,9 @@ public class BoardManager: MonoBehaviour {
 
     private void SetPlayerSpriteOnPosition(int positionId, Sprite sprite)
     {
-        if (positionsRenderer[positionId].sprite == null)
+        if (_positionsRenderer != null && _positionsRenderer[(positionId-1)].sprite == null)
         {
-            positionsRenderer[positionId].sprite = sprite;
+            _positionsRenderer[(positionId-1)].sprite = sprite;
         }
     }
     
@@ -115,10 +155,11 @@ public class BoardManager: MonoBehaviour {
             {
                 StartCoroutine(Timer.WaitATime(5));
                 
-                FindingWinner();
+                FindWinner();
                 _finishingGame = true;
             }
-            
+            EndGame();
+            CheckRestart();
         } else
         {
             if (_game != null && _game.CurrentPlayer.Type == PlayerType.AIPlayer)

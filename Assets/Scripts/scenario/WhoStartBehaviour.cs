@@ -22,6 +22,7 @@ public class WhoStartBehaviour : MonoBehaviour {
         _initScaleX = transform.localScale.x;
         _luckyNumber = Random.Range(3f, 6f);
         _configuration = BoardConfigurationGetter.getConfigurationObject();
+        _configuration.Starter = 0;
         if (_configuration.GameModeOption.Label == "Player X Computer")
         {
             coinPlayer1 = coinComputer;
