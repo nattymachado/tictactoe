@@ -13,9 +13,7 @@ public class SceneLoader {
         {
             AsyncOperation loadOperation = SceneManager.LoadSceneAsync(sceneNameToLoad, LoadSceneMode.Additive);
             while (!loadOperation.isDone)
-            {
-              yield return null;
-            }
+                yield return null;
           
         }
     }
@@ -25,9 +23,7 @@ public class SceneLoader {
         Scene scene = SceneManager.GetSceneByName(sceneToUnload);
         AsyncOperation loadOperation = SceneManager.UnloadSceneAsync(scene);
         while (!loadOperation.isDone)
-        {
             yield return null;
-        }
 
     }
 

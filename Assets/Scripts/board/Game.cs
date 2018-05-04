@@ -56,6 +56,7 @@ public class Game
     private Player _player1 = null;
     private Player _player2 = null;
     private int _winner = 0;
+    private int[] _winnerPositions = null;
     private bool _isOver = false;
     private Player _currentPlayer = null;
 
@@ -139,6 +140,15 @@ public class Game
         }
     }
 
+    public int[] WinnerPositions
+    {
+        get
+        {
+            return _winnerPositions;
+
+        }
+    }
+
     public List<int> GetPossibleMoves()
     {
         List<int> possibleMoves = new List<int>();
@@ -149,11 +159,16 @@ public class Game
             {
                 if (_board.GetPosition(line, column) == 0)
                 {
-                    possibleMoves.Add((line*3) + column + 1);
+                    possibleMoves.Add(ConvertLineAndColumnToPosition(line, column));
                 }
             }
         }
         return possibleMoves;
+    }
+
+    private int ConvertLineAndColumnToPosition(int line,int column)
+    {
+        return ((line * 3) + column + 1);
     }
 
     private int CheckGameEndingColumns()
@@ -162,6 +177,7 @@ public class Game
         {
             if ((_board.GetPosition(0, column) != 0) && (_board.GetPosition(0, column) == _board.GetPosition(1, column)) && (_board.GetPosition(1, column) == _board.GetPosition(2, column)))
             {
+                _winnerPositions = new int[3] { ConvertLineAndColumnToPosition(0, column), ConvertLineAndColumnToPosition(1, column), ConvertLineAndColumnToPosition(2, column) };
                 _winner = _board.GetPosition(0, column);
             }
         }
@@ -172,10 +188,12 @@ public class Game
     {
         if ((_board.GetPosition(0, 0) != 0) && (_board.GetPosition(0, 0) == _board.GetPosition(1, 1)) && (_board.GetPosition(1, 1) == _board.GetPosition(2, 2)))
         {
+            _winnerPositions = new int[3] { ConvertLineAndColumnToPosition(0, 0), ConvertLineAndColumnToPosition(1, 1), ConvertLineAndColumnToPosition(2, 2) };
             _winner = _board.GetPosition(0, 0);
         }
         else if ((_board.GetPosition(0, 2) != 0) && (_board.GetPosition(0, 2) == _board.GetPosition(1, 1)) && (_board.GetPosition(1, 1) == _board.GetPosition(2, 0)))
         {
+            _winnerPositions = new int[3] { ConvertLineAndColumnToPosition(0,2), ConvertLineAndColumnToPosition(1,1), ConvertLineAndColumnToPosition(2,0) };
             _winner = _board.GetPosition(0, 2);
         }
         return _winner;
@@ -188,6 +206,7 @@ public class Game
 
             if ((_board.GetPosition(line, 0) != 0) && (_board.GetPosition(line, 0) == _board.GetPosition(line, 1)) && (_board.GetPosition(line, 1) == _board.GetPosition(line, 2)))
             {
+                _winnerPositions = new int[3] { ConvertLineAndColumnToPosition(line, 0), ConvertLineAndColumnToPosition(line, 1), ConvertLineAndColumnToPosition(line, 2) };
                 _winner = _board.GetPosition(line, 0);
             }
         }

@@ -56,3 +56,9 @@ TagManager:
   - name: TitleMain
     uniqueID: 4036113031
     locked: 0
+  - name: Board
+    uniqueID: 2652681259
+    locked: 0
+  - name: Positions
+    uniqueID: 4224554217
+    locked: 0

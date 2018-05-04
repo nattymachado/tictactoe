@@ -11,7 +11,9 @@ public class BoardManager: MonoBehaviour {
     
     public Sprite Circle = null;
     public Sprite Cross = null;
-    private bool waitingAI = false;
+    public Sprite CrossWithCircle = null;
+    public Sprite CircleWithCircle = null;
+    private bool _finishingGame = false;
     private Game _game = null;
     private AIPlayer _aiPalyer = new AIPlayer();
     
@@ -33,7 +35,14 @@ public class BoardManager: MonoBehaviour {
         }
         player2 = new Player(2, PlayerType.HumanPlayer, Circle);
         _game = new Game(player1, player2);
-        _game.CurrentPlayer = player2;
+        if (_configuration.Starter == 1)
+        {
+            _game.CurrentPlayer = player1;
+        } else
+        {
+            _game.CurrentPlayer = player2;
+        }
+         
         InitializeBoardPositions();
 
     }
@@ -46,6 +55,27 @@ public class BoardManager: MonoBehaviour {
         {
             positionsRenderer[position].sprite = null;
         }
+    }
+
+    private void FindingWinner()
+    {
+        positionsRenderer = GetComponentsInChildren<SpriteRenderer>();
+        Sprite winnerSprite = null;
+        if (_game.Winner == 1)
+        {
+            winnerSprite = CrossWithCircle;
+        } else
+        {
+            winnerSprite = CircleWithCircle;
+        }
+        if (_game.WinnerPositions.Length > 0)
+        {
+            for (int position = 0; position < _game.WinnerPositions.Length; position++)
+            {
+                positionsRenderer[_game.WinnerPositions[position]].sprite = winnerSprite;
+            }
+        }
+        
     }
 
     // Update is called once per frame
@@ -79,9 +109,16 @@ public class BoardManager: MonoBehaviour {
     
     // Update is called once per frame
     private void Update () {
-        if (_game != null && _game.IsOver)
+        if (_game != null && (_game.IsOver || _game.GetPossibleMoves().Count == 0))
         {
-            Debug.Log("Terminou o jogo");
+            if (_finishingGame == false)
+            {
+                StartCoroutine(Timer.WaitATime(5));
+                
+                FindingWinner();
+                _finishingGame = true;
+            }
+            
         } else
         {
             if (_game != null && _game.CurrentPlayer.Type == PlayerType.AIPlayer)

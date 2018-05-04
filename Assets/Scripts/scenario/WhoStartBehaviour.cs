@@ -70,7 +70,7 @@ public class WhoStartBehaviour : MonoBehaviour {
                 transform.localScale = new Vector3(_initScaleX / 2f, transform.localScale.y, 1f);
 
             }
-        } else
+        } else if (_configuration.Starter == 0)
         {
             if (_coin.sprite == coinPlayer1)
             {
@@ -79,7 +79,7 @@ public class WhoStartBehaviour : MonoBehaviour {
             {
                 _configuration.Starter = 2;
             }
-            StartCoroutine(WaitATime());
+            StartCoroutine(Timer.WaitATime(5));
             StartCoroutine(SceneLoader.LoadScene(_nextSceneName));
             StartCoroutine(SceneLoader.UnloadScene(_actualSceneName));
 
@@ -88,12 +88,5 @@ public class WhoStartBehaviour : MonoBehaviour {
 
         
 
-    }
-
-    IEnumerator WaitATime()
-    {
-        print(Time.time);
-        yield return new WaitForSeconds(5);
-        print(Time.time);
     }
 }
