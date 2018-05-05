@@ -11,10 +11,12 @@ public class SceneLoader {
         Scene activeScene = SceneManager.GetActiveScene();
         if (activeScene.name != sceneNameToLoad)
         {
+            
             AsyncOperation loadOperation = SceneManager.LoadSceneAsync(sceneNameToLoad, LoadSceneMode.Additive);
             while (!loadOperation.isDone)
                 yield return null;
-          
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneNameToLoad));
+
         }
     }
 

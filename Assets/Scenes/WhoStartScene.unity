@@ -269,7 +269,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 710414842}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c26db7103f7fb843b5f7651dfb3c161, type: 3}
+  m_Script: {fileID: 11500000, guid: 1717ae47e53cb8c4aafe1b8b8a0e8b42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   coinPlayer1: {fileID: 21300000, guid: f36dabaa04967e644864af5f72a30dff, type: 3}

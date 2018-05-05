@@ -745,7 +745,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f6bd129c727ba243a8a53653fd208e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _numberOfButterflies: 60
+  _numberOfButterflies: 10
   ButterflyTemplate: {fileID: 1372071303419038, guid: 942056d0d92d535448c3fc26bb72435d,
     type: 2}
 --- !u!4 &983442256

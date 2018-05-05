@@ -94,7 +94,8 @@ public class AIPlayer
         int randomNumber;
         if (difficulty == DifficultyOptions.Options.Easy)
         {
-            randomNumber = Random.Range(0, 2) * 2 - 1;
+            randomNumber = (Random.Range(0, 2) * 2 - 1) * 10;
+            Debug.Log(randomNumber);
             return randomNumber;
         } else
         {
@@ -103,11 +104,11 @@ public class AIPlayer
             {
 
                 Debug.Log(1);
-                return 1;
+                return 10;
             } else
             {
                 Debug.Log(-1);
-                return -1;
+                return -10;
             }
 
         }
