@@ -4,20 +4,19 @@ using UnityEngine;
 
 
 
-public class AIPlayer
+public class AIPlayer:Player
 
 {
 
-    private int _playerIdentifier = 1;
-    private int _bestMove = 0;
+    public AIPlayer(int id, PlayerType type, Sprite symbol) :base(id, type, symbol)
+    {
+        
+    }
 
     public int MakePlay(Game game, DifficultyOptions.Options difficulty)
     {
-        GetBestMove(game, -99, 99, 8, difficulty);
-        
-        Debug.Log("BestMove:" + _bestMove);
-
-        return _bestMove;
+        Dictionary<string, int> result = GetBestMove(game, -99, 99, 8, difficulty);
+        return result["bestMove"];
     }
 
     private Dictionary<string, int> SetPositionScore(int line, int column, int value)
@@ -29,14 +28,16 @@ public class AIPlayer
         return positionScore;
     }
 
-    private int GetBestMove(Game game, int alpha, int beta, int depth, DifficultyOptions.Options difficulty)
+    private Dictionary<string, int> GetBestMove(Game game, int alpha, int beta, int depth, DifficultyOptions.Options difficulty)
     {
+        Dictionary<string, int> result = new Dictionary<string, int>();
 
         if (game.IsOver  || depth == 0)
-            return GetScore(game.Winner, game.Player1.Id, difficulty);
+        {
+            result["score"] = GetScore(game.Winner, game.Player1.Id, difficulty);
+            return result;
+        }
 
-        List<int> scores = new List<int>();
-        List<int> moves = new List<int>();
         List<int> pMoves = new List<int>();
         int bestScore=0;
         int score;
@@ -49,7 +50,7 @@ public class AIPlayer
                 Game cloneGame = game.Clone();
                 cloneGame.CurrentPlayer = game.CurrentPlayer;
                 cloneGame.MakeMove(pMoves[i]);
-                score=GetBestMove(cloneGame, alpha,beta, depth -1, difficulty);
+                score=GetBestMove(cloneGame, alpha,beta, depth -1, difficulty)["score"];
                 if (i == 0)
                 {
                     bestScore = score;
@@ -78,36 +79,32 @@ public class AIPlayer
                 }
             }
 
-            _bestMove = bestMove;
-            return bestScore;
-         
+            result["bestMove"] = bestMove;
+            result["score"] = bestScore;
         } else
         {
-            return 0;
+            result["score"] = 0;
+            
         }
-        
 
+        return result;
     }
 
-    private int getRamdomNumber(DifficultyOptions.Options difficulty)
+    private int getRamdomNumber(DifficultyOptions.Options difficulty, int value)
     {
         int randomNumber;
         if (difficulty == DifficultyOptions.Options.Easy)
         {
-            randomNumber = Random.Range(0, 2) * 2 - 1;
+            randomNumber = Random.Range(0, 10);
             return randomNumber;
         } else
         {
-            randomNumber = Random.Range(0, 100);
-            if (randomNumber > 75)
+            if (Random.value <= 0.3)
             {
-
-                Debug.Log(1);
-                return 1;
+                return value * -1;
             } else
             {
-                Debug.Log(-1);
-                return -1;
+                return value;
             }
 
         }
@@ -123,17 +120,13 @@ public class AIPlayer
         {
             score = 10;
             if (difficulty == DifficultyOptions.Options.Easy)
-            {
-                score = score * getRamdomNumber(difficulty);
-            }
+                score = getRamdomNumber(difficulty, score);
             
         } else if (winner == 2)
         {
             score = -10;
             if (difficulty != DifficultyOptions.Options.Hard)
-            {
-                score = score * getRamdomNumber(difficulty);
-            }
+                score = getRamdomNumber(difficulty, score);
         } else
         {
             score = 0;

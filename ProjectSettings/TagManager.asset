@@ -62,3 +62,6 @@ TagManager:
   - name: Positions
     uniqueID: 4224554217
     locked: 0
+  - name: Info
+    uniqueID: 2448644009
+    locked: 0

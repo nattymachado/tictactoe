@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class DifficultyOptions  {
 
-    public enum Options { Easy, Medium, Hard };
+    public enum Options { Hard, Easy, Medium };
 }

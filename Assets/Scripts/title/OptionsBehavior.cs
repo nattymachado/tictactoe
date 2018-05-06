@@ -29,7 +29,7 @@ public class OptionsBehavior : MonoBehaviour {
 
         _difficultyDropdown = GameObject.Find("DifficultyDropdown").GetComponent<Dropdown>();
         _difficultyDropdown.onValueChanged.AddListener(delegate {
-            DifficultyDropdownChanged(_gameModeDropdown);
+            DifficultyDropdownChanged(_difficultyDropdown);
         });
         _difficultyDropdown.gameObject.SetActive(false);
         _difficultyText = GameObject.Find("DifficultyText").GetComponent<Text>();
@@ -41,6 +41,7 @@ public class OptionsBehavior : MonoBehaviour {
         });
 
         _configuration = BoardConfigurationGetter.getConfigurationObject();
+        _configuration.Difficulty = (DifficultyOptions.Options) 0;
 
     }
 
@@ -55,12 +56,15 @@ public class OptionsBehavior : MonoBehaviour {
             _difficultyDropdown.gameObject.SetActive(false);
             _difficultyText.gameObject.SetActive(false);
         }
-        
+        Debug.Log(dropdown.options[dropdown.value].text);
+
+
         _configuration.GameModeOption = new GameModeOption(dropdown.options[dropdown.value].text , dropdown.value);
     }
 
     private void DifficultyDropdownChanged(Dropdown dropdown)
     {
+        Debug.Log(dropdown.value);
         _configuration.Difficulty = (DifficultyOptions.Options) dropdown.value;
     }
 
