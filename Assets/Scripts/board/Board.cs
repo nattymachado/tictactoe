@@ -67,13 +67,5 @@ public class Board {
             }
         }
         return false;
-    }
-
-
-    public void seeBoard(Board board)
-    {
-        Debug.Log(board.GetPosition(0, 0)  + "|" + board.GetPosition(0, 1) + "|" + board.GetPosition(0, 2));
-        Debug.Log(board.GetPosition(1, 0) + "|" + board.GetPosition(1, 1) + "|" + board.GetPosition(1, 2));
-        Debug.Log(board.GetPosition(2, 0) + "|" + board.GetPosition(2, 1) + "|" + board.GetPosition(2, 2));
-    }    
+    }   
 }

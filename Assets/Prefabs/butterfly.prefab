@@ -38,7 +38,6 @@ GameObject:
   - component: {fileID: 4664803391477534}
   - component: {fileID: 212841840273416330}
   - component: {fileID: 61224992896091550}
-  - component: {fileID: 114480076193519036}
   - component: {fileID: 114130594981244330}
   m_Layer: 0
   m_Name: butterfly
@@ -138,17 +137,6 @@ MonoBehaviour:
   WaveLength: 10
   WaveAmplitude: 5
   Speed: 5
---- !u!114 &114480076193519036
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1372071303419038}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51f1f0b08474fef4aad2b32fe1a22222, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &212841840273416330
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -9,17 +9,14 @@ EditorBuildSettings:
     path: Assets/Scenes/TitleScene.unity
     guid: f3854763305660247ba0f5045a92f22c
   - enabled: 1
-    path: Assets/Scenes/BoardScene.unity
-    guid: 93ebdbf8d29e0fb468d8c1ba7e76d738
-  - enabled: 1
     path: Assets/Scenes/ConfigurationZone.unity
     guid: 107f334afe8ad434f84fdcd94ee0d91e
   - enabled: 1
+    path: Assets/Scenes/BoardScene.unity
+    guid: 93ebdbf8d29e0fb468d8c1ba7e76d738
+  - enabled: 1
     path: Assets/Scenes/OptionsScene.unity
     guid: fda65413288fea040b2701485f109b69
-  - enabled: 1
-    path: Assets/Scenes/EndScene.unity
-    guid: 0cd9765048ff5244e8c72d69b57ec945
   - enabled: 1
     path: Assets/Scenes/WhoStartScene.unity
     guid: 1d2ea6d1be26ac941bcf0c1b92663fd6

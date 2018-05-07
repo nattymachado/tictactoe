@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class BoardConfiguration : MonoBehaviour {
 
-    private static DifficultyOptions.Options _difficulty = DifficultyOptions.Options.Hard;
-    private static GameModeOption _gameModeOption = null;
-    private static int _starter = 0;
+    private DifficultyOptions.Options _difficulty = DifficultyOptions.Options.Hard;
+    private GameModeOption _gameModeOption = null;
+    private int _starter = 0;
+    private AudioSource _audio = null;
+
+    public void Start()
+    {
+        _audio = GetComponent<AudioSource>();
+    }
 
     public DifficultyOptions.Options Difficulty
     {
@@ -42,6 +48,16 @@ public class BoardConfiguration : MonoBehaviour {
         {
             _starter = value;
         }
+    }
+
+    public void DisabledGeneralAudio()
+    {
+        _audio.enabled = false;
+    }
+
+    public void EnabledGeneralAudio()
+    {
+        _audio.enabled = true;
     }
 
 }
