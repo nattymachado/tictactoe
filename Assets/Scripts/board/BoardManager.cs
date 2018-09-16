@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Networking;
 
 
 public class BoardManager: MonoBehaviour {
@@ -27,7 +26,9 @@ public class BoardManager: MonoBehaviour {
     
 
     private void Start () {
-
+        
+        
+        
         _configuration = BoardConfigurationGetter.getConfigurationObject();
         _configuration.DisabledGeneralAudio();
         Player player1 = null;

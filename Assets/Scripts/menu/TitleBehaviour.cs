@@ -16,6 +16,7 @@ public class TitleBehaviour : MonoBehaviour {
         _renderer = GetComponent<SpriteRenderer>();
         _renderer.sprite = StartTitleSprite;
         StartCoroutine(SceneLoader.LoadScene("ConfigurationZone"));
+        StartCoroutine(SceneLoader.LoadScene("ConfigurationNetworkZone"));
     }
 
 

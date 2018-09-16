@@ -9,11 +9,15 @@ public class OptionsBehavior : MonoBehaviour {
     private Text _difficultyText;
     private Button _startButton;
     private BoardConfiguration _configuration;
-    private string _nextSceneName = "WhoStartScene";
+    
+    private string _whoStartSceneName = "WhoStartScene";
+    private string _networkSceneName = "ConfigurationNetwork";
+    private string _nextSceneName = "";
     private string _optionsSceneName = "OptionsScene";
 
     private void Start () {
-        
+
+        _nextSceneName = _whoStartSceneName;
         _gameModeDropdown = GameObject.Find("GameModeDropdown").GetComponent<Dropdown>();
         List<Dropdown.OptionData> optionDataList = new List<Dropdown.OptionData>();
         optionDataList.Add(new Dropdown.OptionData("Select a Game Mode ..."));
@@ -30,6 +34,7 @@ public class OptionsBehavior : MonoBehaviour {
         _difficultyDropdown.onValueChanged.AddListener(delegate {
             DifficultyDropdownChanged(_difficultyDropdown);
         });
+
         _difficultyDropdown.gameObject.SetActive(false);
         _difficultyText = GameObject.Find("DifficultyText").GetComponent<Text>();
         _difficultyText.gameObject.SetActive(false);
@@ -53,21 +58,13 @@ public class OptionsBehavior : MonoBehaviour {
             {
                 _difficultyDropdown.gameObject.SetActive(true);
                 _difficultyText.gameObject.SetActive(true);
+                _nextSceneName = _whoStartSceneName;
             }
             else
             {
                 _difficultyDropdown.gameObject.SetActive(false);
                 _difficultyText.gameObject.SetActive(false);
-            }
-            if ((dropdown.value) == GameModeOptions.options[0].Value)
-            {
-                _difficultyDropdown.gameObject.SetActive(true);
-                _difficultyText.gameObject.SetActive(true);
-            }
-            else
-            {
-                _difficultyDropdown.gameObject.SetActive(false);
-                _difficultyText.gameObject.SetActive(false);
+                _nextSceneName = _networkSceneName;
             }
             _configuration.GameModeOption = new GameModeOption(dropdown.options[dropdown.value].text, dropdown.value);
         } else
@@ -87,6 +84,7 @@ public class OptionsBehavior : MonoBehaviour {
     {
         if (_configuration.GameModeOption != null)
         {
+            Debug.Log(_nextSceneName);
             StartCoroutine(SceneLoader.LoadScene(_nextSceneName));
             StartCoroutine(SceneLoader.UnloadScene(_optionsSceneName));
         }
