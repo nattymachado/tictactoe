@@ -18,6 +18,8 @@ public class WhoStartBehaviour : MonoBehaviour {
     private string _actualSceneName = "WhoStartScene";
 
     private void Start () {
+        SceneLoader.LoadScene("ConfigurationZone");
+        SceneLoader.LoadScene("ConfigurationNetworkZone");
         _coin = GetComponent<SpriteRenderer>();
         _initScaleX = transform.localScale.x;
         _luckyNumber = Random.Range(3f, 6f);

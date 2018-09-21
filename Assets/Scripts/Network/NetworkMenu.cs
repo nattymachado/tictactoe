@@ -10,13 +10,16 @@ public class NetworkMenu : MonoBehaviour {
 
     private string _roomName =  "";
     private bool _isConnected = false;
-    public Button StartLanButton;
+    public Button StartServerLan;
+    public Button JoinLan;
     public float DiscoveryUpdatePeriod = 0.5f;
     private float _timeToRefreshMatch = 0;
     public Dropdown networkMatchesDropwork;
+    private const int _maxRooms = 10;
     private List<NetworkBroadcastResult> _matches = new List<NetworkBroadcastResult>();
     private List<Dropdown.OptionData> _optionMatchesList = new List<Dropdown.OptionData>();
     private LocalController _localController;
+    private Dictionary<int, NetworkBroadcastResult> _currentMatchesData = new Dictionary<int, NetworkBroadcastResult>();
 
 
     void Start()
@@ -29,19 +32,19 @@ public class NetworkMenu : MonoBehaviour {
 
     private void AddListeners()
     {
-        StartLanButton.onClick.AddListener(CreateLanMatch);
+        StartServerLan.onClick.AddListener(CreateLanMatch);
+        JoinLan.onClick.AddListener(JoinOnRoom);
     }
 
     
 
     public void LoadGameScene()
     {
-        //NetworkManagerSpecific.ServerChangeScene("BoardScene");
+        ///NetworkManagerSpecific.singleton.ServerChangeScene("WhoStartScene");
     }
 
     private void Update()
     {
-        Debug.Log("_localController.NetworkType ");
         if (!_isConnected && _localController.NetworkType == "LAN")
         {
             _timeToRefreshMatch -= Time.deltaTime;
@@ -54,66 +57,74 @@ public class NetworkMenu : MonoBehaviour {
         }
     }
 
+    private bool CheckIfIsEqual(byte[] data1, byte[] data2)
+    {
+        Debug.Log(System.Text.Encoding.Default.GetString(data1));
+        return System.Text.Encoding.Default.GetString(data1) == System.Text.Encoding.Default.GetString(data1);
+    }
+
     private void RefreshMatches()
     {
         // filter matches
-        Debug.Log("Estou aqui");
         _matches.Clear();
         _optionMatchesList.Clear();
         foreach (var match in NetworkManagerSpecific.Discovery.broadcastsReceived.Values)
         {
-            _optionMatchesList.Add(new Dropdown.OptionData(Encoding.Unicode.GetString(match.broadcastData)));
-            /* if (_matches.Any(item => EqualsArray(item.broadcastData, match.broadcastData)))
-            {
-                continue;
-            }*/
-
-            //Debug.Log(match.serverAddress);
-
-            _matches.Add(match);
-        }
-
-        
-
-        networkMatchesDropwork.AddOptions(_optionMatchesList);
-
-        /*int i = 0;
-        foreach (var match in _matches)
-        {
-            if (i >= 10)
+            if (_matches.Count >= 10)
             {
                 break;
             }
-
-            string matchName = Encoding.Unicode.GetString(match.broadcastData);
-            //Debug.Log(matchName);
-
-            _currentMatchesData[i] = match;
-
-            _currentMatches[i].SetActive(true);
-            _currentMatches[i].GetComponentInChildren<Text>().text = "Join match: " + matchName;
-            i++;
+            
+            if (_matches.Any(item => CheckIfIsEqual(item.broadcastData, match.broadcastData)))
+            {
+                continue;
+            }
+            _optionMatchesList.Add(new Dropdown.OptionData(Encoding.Unicode.GetString(match.broadcastData)));
+            _matches.Add(match);
         }
-        for (; i < _currentMatches.Count; i++)
-        {
-            _currentMatches[i].SetActive(false);
-        }*/
 
-        Debug.Log(_matches);
+
+        networkMatchesDropwork.ClearOptions();
+        networkMatchesDropwork.AddOptions(_optionMatchesList);
+
+        if (_matches.Count == 0)
+        {
+            JoinLan.enabled = false;
+            return;
+        }
+        else
+        {
+            JoinLan.enabled = true;
+        }
+        for (var i = 0; i < _matches.Count; i++)
+        {
+            _currentMatchesData[i] = _matches[i];
+        }
+
+
     }
 
     public void CreateLanMatch()
     {
         NetworkManagerSpecific.Discovery.StopBroadcast();
-
-        _roomName = "Natalia";
-        NetworkManagerSpecific.Discovery.broadcastData = "Natalia";
+        _roomName = Random.Range(100000, 1000000).ToString();
+        NetworkManagerSpecific.Discovery.broadcastData = _roomName;
         NetworkManagerSpecific.Discovery.StartAsServer();
-
         NetworkManagerSpecific.singleton.StartHost();
-
-        Debug.Log("Estou conectada");
         _isConnected = true;
+        LoadGameScene();
+    }
+
+    private void JoinOnRoom()
+    {
+        var matchData = _currentMatchesData[networkMatchesDropwork.value];
+
+        NetworkManagerSpecific.singleton.networkAddress = matchData.serverAddress;
+        NetworkManagerSpecific.singleton.StartClient();
+
+        NetworkManagerSpecific.Discovery.StopBroadcast();
+        _isConnected = true;
+        LoadGameScene();
     }
 
 }

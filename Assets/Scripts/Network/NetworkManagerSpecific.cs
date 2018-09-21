@@ -10,7 +10,6 @@ public class NetworkManagerSpecific : NetworkManager {
     {
         get
         {
-            Debug.Log("Getting");
             return singleton.GetComponent<NetworkDiscovery>();
         }
     }
